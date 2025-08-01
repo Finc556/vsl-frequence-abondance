@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="geo.region" content="FR">
     <meta name="robots" content="noindex, nofollow">
+    <meta property="og:title" content="Le Son Magique qui Reconnecte votre Fréquence d'Abondance">
+    <meta property="og:description" content="Découvrez le protocole révolutionnaire de 7 minutes qui éteint le bourdonnement mental">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
     <title>Le Son Magique qui Reconnecte votre Fréquence d'Abondance</title>
     <style>
         * {
@@ -119,6 +123,11 @@
         .cta-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(255, 102, 0, 0.4);
+            background: linear-gradient(45deg, #e55a00, #ff7020);
+        }
+        
+        .cta-button:active {
+            transform: translateY(0);
         }
         
         /* Armadura de Confiança */
@@ -270,6 +279,14 @@
             width: fit-content;
         }
         
+        /* Selo Hotmart */
+        .hotmart-trust {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
         /* Responsividade Mobile */
         @media (max-width: 768px) {
             .container {
@@ -355,9 +372,13 @@
         
         <!-- Player de Vídeo -->
         <div class="video-container">
-            <div class="video-placeholder">
+            <div class="video-placeholder" id="videoContainer">
                 <div class="video-text">
-                    (Lecteur VSL de 12 minutes ici)
+                    <!-- Substitua por seu player real aqui -->
+                    <!-- Exemplo Vimeo: <iframe src="https://player.vimeo.com/video/SEU_ID?api=1" id="vimeoPlayer"></iframe> -->
+                    <!-- Exemplo YouTube: <iframe src="https://www.youtube.com/embed/SEU_ID?enablejsapi=1" id="youtubePlayer"></iframe> -->
+                    <!-- Exemplo HTML5: <video id="html5Player" controls><source src="seu-video.mp4" type="video/mp4"></video> -->
+                    (Substitua por seu lecteur VSL réel ici)
                 </div>
             </div>
         </div>
@@ -365,8 +386,11 @@
         <!-- Seção de Conversão (Inicialmente Oculta) -->
         <div class="conversion-section" id="conversionSection">
             
-            <!-- Botão CTA -->
-            <a href="https://pay.hotmart.com/D99701587U" class="cta-button">
+            <!-- Botão CTA Principal -->
+            <a href="https://pay.hotmart.com/D99701587U?utm_source=vsl&utm_medium=cta_top&utm_campaign=frequence&utm_content=button_principal" 
+               class="cta-button"
+               onclick="trackConversion('cta_principal')"
+               target="_blank">
                 OUI, JE VEUX L'ACCÈS IMMÉDIAT POUR SEULEMENT 37€
             </a>
             
@@ -377,6 +401,9 @@
                 </div>
                 <div class="security-icons">
                     🔒 Paiement 100% Sécurisé | 💳 Visa, Mastercard, PayPal
+                </div>
+                <div class="hotmart-trust">
+                    Plateforme sécurisée Hotmart - Plus de 15 millions d'utilisateurs
                 </div>
             </div>
             
@@ -455,85 +482,251 @@
             </div>
             
             <!-- Segundo Botão CTA -->
-            <a href="https://pay.hotmart.com/D99701587U" class="cta-button">
+            <a href="https://pay.hotmart.com/D99701587U?utm_source=vsl&utm_medium=cta_bottom&utm_campaign=frequence&utm_content=button_final" 
+               class="cta-button"
+               onclick="trackConversion('cta_final')"
+               target="_blank">
                 OUI, JE VEUX L'ACCÈS IMMÉDIAT POUR SEULEMENT 37€
             </a>
             
             <!-- Elemento de Urgência -->
             <div class="urgency">
-                ⚠️ Attention : Cette offre exceptionnelle se termine dans : [Compteur à rebours ici]
+                ⚠️ Attention : Cette offre exceptionnelle se termine dans : <span id="countdown">23:59:45</span>
             </div>
             
         </div>
     </div>
 
     <script>
-        /*
-        INGÉNIERIE PSYCHOLOGIQUE : Script de Déclenchement Chronométré
-        
-        Cette fonction simule le comportement d'une vraie VSL où la section de conversion
-        n'apparaît qu'après que le spectateur ait regardé une partie spécifique de la vidéo.
-        
-        En production, ce timer serait remplacé par de vrais événements du lecteur vidéo
-        (ex: quand la vidéo atteint 70% de lecture ou un timestamp spécifique).
-        
-        Le délai de 8 secondes est uniquement pour démonstration/prototypage.
-        */
-        
+        // ENGENHARIA PSICOLÓGICA: Sistema de Aparição Sincronizado com Vídeo
         function showConversionSection() {
             const conversionSection = document.getElementById('conversionSection');
-            
-            // D'abord affiche l'élément (display: block)
             conversionSection.style.display = 'block';
             
-            // Petit délai pour s'assurer que l'élément est rendu
             setTimeout(() => {
-                // Ajoute la classe qui active la transition d'opacity
                 conversionSection.classList.add('show');
             }, 50);
+            
+            // Track evento de aparição
+            trackEvent('conversion_section_visible', 'video_9min_trigger');
+            console.log('🎯 Seção de conversão apareceu aos 9 minutos do vídeo!');
         }
         
-        // Simule le déclencheur après 8 secondes (remplacer par événement vidéo réel)
-        setTimeout(showConversionSection, 8000);
+        // ==============================================
+        // SISTEMA DE DETECÇÃO DO TEMPO DO VÍDEO
+        // ==============================================
         
-        // Log pour debug
-        console.log('Page VSL française chargée. Section de conversion apparaîtra dans 8 secondes.');
-        
-        // Fonction additionnelle pour tester manuellement (peut être supprimée en production)
-        function forceShowConversion() {
-            showConversionSection();
-            console.log('Section de conversion forcée à apparaître.');
-        }
-        
-        // Ajoute des event listeners pour les boutons CTA
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctaButtons = document.querySelectorAll('.cta-button');
-            ctaButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('CTA cliqué! Ici vous redirigeriez vers la page de checkout.');
-                    alert('En production, ce bouton mènerait vers la page de paiement.');
+        // YOUTUBE PLAYER
+        function initYouTubePlayer() {
+            if (typeof YT !== 'undefined' && YT.Player) {
+                const player = new YT.Player('youtubePlayer', {
+                    events: {
+                        'onStateChange': function(event) {
+                            if (event.data === YT.PlayerState.PLAYING) {
+                                checkYouTubeTime(player);
+                            }
+                        }
+                    }
                 });
+            }
+        }
+        
+        function checkYouTubeTime(player) {
+            const checkInterval = setInterval(() => {
+                const currentTime = player.getCurrentTime();
+                console.log('⏱️ Tempo YouTube:', Math.floor(currentTime), 'segundos');
+                
+                if (currentTime >= 540) { // 9 minutos = 540 segundos
+                    clearInterval(checkInterval);
+                    showConversionSection();
+                }
+            }, 1000);
+        }
+        
+        // VIMEO PLAYER
+        function initVimeoPlayer() {
+            if (typeof Vimeo !== 'undefined') {
+                const iframe = document.getElementById('vimeoPlayer');
+                const player = new Vimeo.Player(iframe);
+                
+                player.on('timeupdate', function(data) {
+                    console.log('⏱️ Tempo Vimeo:', Math.floor(data.seconds), 'segundos');
+                    
+                    if (data.seconds >= 540) { // 9 minutos
+                        showConversionSection();
+                    }
+                });
+            }
+        }
+        
+        // HTML5 VIDEO
+        function initHTML5Player() {
+            const video = document.getElementById('html5Player');
+            if (video) {
+                video.addEventListener('timeupdate', function() {
+                    const currentTime = this.currentTime;
+                    console.log('⏱️ Tempo HTML5:', Math.floor(currentTime), 'segundos');
+                    
+                    if (currentTime >= 540) { // 9 minutos
+                        showConversionSection();
+                    }
+                });
+            }
+        }
+        
+        // WISTIA PLAYER
+        function initWistiaPlayer() {
+            if (typeof Wistia !== 'undefined') {
+                Wistia.api('SEU_WISTIA_ID', function(video) {
+                    video.bind('secondchange', function(s) {
+                        console.log('⏱️ Tempo Wistia:', Math.floor(s), 'segundos');
+                        
+                        if (s >= 540) { // 9 minutos
+                            showConversionSection();
+                        }
+                    });
+                });
+            }
+        }
+        
+        // FALLBACK: Timer Manual (APENAS para teste sem vídeo)
+        function initFallbackTimer() {
+            console.log('⚠️ MODO TESTE: Seção aparecerá em 10 segundos (simula 9min do vídeo)');
+            setTimeout(() => {
+                console.log('🎬 Simulando: Vídeo chegou aos 9 minutos');
+                showConversionSection();
+            }, 10000); // 10 segundos para teste
+        }
+        
+        // FUNÇÃO UNIVERSAL DE INICIALIZAÇÃO
+        function initVideoTracking() {
+            // Detecta automaticamente qual player está sendo usado
+            
+            if (document.getElementById('youtubePlayer')) {
+                console.log('🎬 YouTube player detectado');
+                // Carrega API do YouTube se necessário
+                if (!window.YT) {
+                    const tag = document.createElement('script');
+                    tag.src = 'https://www.youtube.com/iframe_api';
+                    document.head.appendChild(tag);
+                    window.onYouTubeIframeAPIReady = initYouTubePlayer;
+                } else {
+                    initYouTubePlayer();
+                }
+                
+            } else if (document.getElementById('vimeoPlayer')) {
+                console.log('🎬 Vimeo player detectado');
+                // Carrega API do Vimeo se necessário
+                if (!window.Vimeo) {
+                    const script = document.createElement('script');
+                    script.src = 'https://player.vimeo.com/api/player.js';
+                    document.head.appendChild(script);
+                    script.onload = initVimeoPlayer;
+                } else {
+                    initVimeoPlayer();
+                }
+                
+            } else if (document.getElementById('html5Player')) {
+                console.log('🎬 HTML5 video detectado');
+                initHTML5Player();
+                
+            } else if (window.Wistia) {
+                console.log('🎬 Wistia player detectado');
+                initWistiaPlayer();
+                
+            } else {
+                console.log('⚠️ Nenhum player detectado - usando timer de teste');
+                initFallbackTimer();
+            }
+        }
+        
+        // SISTEMA DE TRACKING AVANÇADO
+        function trackEvent(action, label, value = null) {
+            // Google Analytics 4
+            if (typeof gtag !== 'undefined') {
+                gtag('event', action, {
+                    'event_category': 'VSL_Frequence',
+                    'event_label': label,
+                    'value': value
+                });
+            }
+            
+            // Facebook Pixel
+            if (typeof fbq !== 'undefined') {
+                if (action === 'conversion_cta_click') {
+                    fbq('track', 'InitiateCheckout', {
+                        value: 37,
+                        currency: 'EUR',
+                        content_name: 'Protocole Frequence 21'
+                    });
+                }
+            }
+            
+            console.log('Event tracked:', action, label, value);
+        }
+        
+        // Track cliques nos CTAs
+        function trackConversion(buttonLocation) {
+            trackEvent('conversion_cta_click', buttonLocation, 37);
+        }
+        
+        // COUNTDOWN TIMER SIMPLES
+        function updateCountdown() {
+            const countdownElement = document.getElementById('countdown');
+            if (!countdownElement) return;
+            
+            // Simula countdown de 24h (substitua por lógica real)
+            let timeLeft = 24 * 60 * 60; // 24 horas em segundos
+            
+            const timer = setInterval(() => {
+                const hours = Math.floor(timeLeft / 3600);
+                const minutes = Math.floor((timeLeft % 3600) / 60);
+                const seconds = timeLeft % 60;
+                
+                countdownElement.textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                timeLeft--;
+                
+                if (timeLeft < 0) {
+                    clearInterval(timer);
+                    countdownElement.textContent = "OFFRE EXPIRÉE";
+                }
+            }, 1000);
+        }
+        
+        // INICIALIZAÇÃO
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('VSL Française chargée - Hotmart intégré');
+            
+            // Iniciar countdown
+            updateCountdown();
+            
+            // Track page view
+            trackEvent('page_view', 'vsl_load');
+            
+            // Track scroll depth
+            let maxScroll = 0;
+            window.addEventListener('scroll', () => {
+                const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollPercent > maxScroll) {
+                    maxScroll = scrollPercent;
+                    if (maxScroll >= 25 && maxScroll < 50) {
+                        trackEvent('scroll_depth', '25_percent');
+                    } else if (maxScroll >= 50 && maxScroll < 75) {
+                        trackEvent('scroll_depth', '50_percent');
+                    } else if (maxScroll >= 75) {
+                        trackEvent('scroll_depth', '75_percent');
+                    }
+                }
             });
         });
         
-        // Tracking événements pour analytics (optionnel)
-        function trackEvent(action, label) {
-            if (typeof gtag !== 'undefined') {
-                gtag('event', action, {
-                    'event_category': 'VSL',
-                    'event_label': label
-                });
-            }
-            console.log('Événement tracké:', action, label);
+        // FUNÇÃO PARA FORÇAR APARIÇÃO (TESTE)
+        function forceShowConversion() {
+            showConversionSection();
+            console.log('Seção de conversão forçada');
         }
-        
-        // Track quand la section de conversion apparaît
-        setTimeout(() => {
-            trackEvent('conversion_section_shown', 'automatic_trigger');
-        }, 8100);
     </script>
 </body>
-
 </html>
-
